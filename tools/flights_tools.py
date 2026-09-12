@@ -5,25 +5,25 @@
         3、乘客机票改签
         4、乘客取消航班
 """
-from sqlite3 import connect, Cursor
+from sqlite3 import connect
 from datetime import date, datetime
 from typing import Optional, List, Dict
 import pytz
 from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import tool
+from langgraph.prebuilt import ToolRuntime
 
 db = "../travel_new.sqlite"  # 数据库文件名
 
 
 @tool
-def fetch_user_flight_information(config: RunnableConfig) -> List[Dict]:
+def fetch_user_flight_information(runtime: ToolRuntime) -> List[Dict]:
     """
     此函数通过给定的乘客ID，从数据库中获取该乘客的所有机票信息及其相关联的航班信息和座位分配情况。
     返回:
         包含每张机票的详情、关联航班的信息及座位分配的字典列表。
     """
-    configuration = config.get("configurable", {})
-    passenger_id = configuration.get("passenger_id", None)
+    passenger_id = runtime.context.passenger_id
     if not passenger_id:
         raise ValueError("未配置乘客 ID。")
 

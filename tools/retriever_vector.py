@@ -46,7 +46,7 @@ class VectorStoreRetriever:
         #     embedding_doc = embeddings_model.embed_documents(doc["page_content"])
         #     embedding_docs.append(embedding_doc)
         # 列表生成器
-        embedding_docs = embeddings_model.embed_documents(doc["page_content"] for doc in docs)
+        embedding_docs = embeddings_model.embed_documents([doc["page_content"] for doc in docs])
 
         # 2、返回向量检索实例
         vectors = embedding_docs
