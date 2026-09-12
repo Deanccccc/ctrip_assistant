@@ -1,3 +1,10 @@
+"""
+    汽车租赁相关工具:
+        1、条件搜索汽车租赁信息
+        2、通过ID预定汽车租赁服务
+        3、根据ID修改汽车租赁时间区间
+        4、根据ID取消汽车租赁服务
+"""
 from sqlite3 import connect
 from datetime import date, datetime
 from typing import Optional, Union

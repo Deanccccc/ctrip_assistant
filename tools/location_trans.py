@@ -1,4 +1,6 @@
-
+"""
+    城市名 中英文映射
+"""
 def transform_location(chinese_city):
     # 中文到英文的城市名映射表
     city_dict = {

@@ -1,3 +1,10 @@
+"""
+    酒店操作相关工具定义:
+        1、条件搜索酒店信息
+        2、通过ID预定酒店
+        3、根据ID修改酒店入住信息
+        4、根据ID取消酒店预订
+"""
 from sqlite3 import connect, Cursor
 from datetime import date, datetime
 from typing import Optional, Union

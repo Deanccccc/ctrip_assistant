@@ -107,6 +107,7 @@ def lookup_policy(query: str) -> str:
     return "\n\n".join([doc["page_content"] for doc in docs])
 
 
+# 测试
 if __name__ == '__main__':  # 测试代码
     agent = create_agent(
         model=deepseek,
