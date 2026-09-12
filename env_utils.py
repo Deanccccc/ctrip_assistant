@@ -1,5 +1,5 @@
 """
-    环境导入工具
+    环境变量导入工具
 """
 import os
 from dotenv import load_dotenv

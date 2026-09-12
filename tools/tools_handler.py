@@ -1,5 +1,8 @@
 """
-    全局工具异常处理器
+    全局工具异常处理器, 包括三种类型:
+        1、异常处理
+        2、异常处理并回退
+        3、打印事件信息
 """
 from langchain_core.messages import ToolMessage
 from langchain_core.runnables import RunnableLambda

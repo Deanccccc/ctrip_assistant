@@ -1,3 +1,10 @@
+"""
+    航班操作相关工具定义:
+        1、根据乘客ID查询航班信息
+        2、条件搜素航班
+        3、乘客机票改签
+        4、乘客取消航班
+"""
 from sqlite3 import connect, Cursor
 from datetime import date, datetime
 from typing import Optional, List, Dict

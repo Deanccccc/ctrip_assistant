@@ -1,4 +1,11 @@
-from sqlite3 import connect, Cursor
+"""
+    旅行推荐相关工具定义:
+        1、条件搜索旅行推荐信息
+        2、通过ID预定一次旅行推荐
+        3、根据ID更新旅行推荐信息
+        4、根据ID取消旅行推荐
+"""
+from sqlite3 import connect
 from typing import Optional, List
 
 from langchain_core.tools import tool
