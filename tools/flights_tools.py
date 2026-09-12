@@ -23,6 +23,7 @@ def fetch_user_flight_information(runtime: ToolRuntime) -> List[Dict]:
     返回:
         包含每张机票的详情、关联航班的信息及座位分配的字典列表。
     """
+    # 修改成从上下文获取 passenger_id
     passenger_id = runtime.context.passenger_id
     if not passenger_id:
         raise ValueError("未配置乘客 ID。")
@@ -114,7 +115,8 @@ def search_flights(
 
 @tool
 def update_ticket_to_new_flight(
-        ticket_no: str, new_flight_id: int, *, config: RunnableConfig
+        # ticket_no: str, new_flight_id: int, *, config: RunnableConfig
+        ticket_no: str, new_flight_id: int, *, runtime: ToolRuntime
 ) -> str:
     """
     将用户的机票更新为新的有效航班。步骤如下：
@@ -129,12 +131,14 @@ def update_ticket_to_new_flight(
     - ticket_no (str): 要更新的机票编号。
     - new_flight_id (int): 新的航班ID。
     - config (RunnableConfig): 配置信息，包含乘客ID等必要参数。
+    - runtime (ToolRuntime): 运行时上下文，包含乘客ID等必要参数。
 
     返回:
     - str: 操作结果的消息。
     """
-    configuration = config.get("configurable", {})
-    passenger_id = configuration.get("passenger_id", None)
+    # configuration = config.get("configurable", {})
+    # passenger_id = configuration.get("passenger_id", None)
+    passenger_id = runtime.context.passenger_id
     if not passenger_id:
         raise ValueError("未配置乘客 ID。")
 
@@ -198,7 +202,8 @@ def update_ticket_to_new_flight(
 
 
 @tool
-def cancel_ticket(ticket_no: str, *, config: RunnableConfig) -> str:
+# def cancel_ticket(ticket_no: str, *, config: RunnableConfig) -> str:
+def cancel_ticket(ticket_no: str, *, runtime: ToolRuntime) -> str:
     """
     取消用户的机票并将其从数据库中删除。步骤如下：
     1、检查乘客ID：首先从传入的配置中获取乘客ID，并验证其是否存在。
@@ -209,12 +214,14 @@ def cancel_ticket(ticket_no: str, *, config: RunnableConfig) -> str:
     参数:
     - ticket_no (str): 要取消的机票编号。
     - config (RunnableConfig): 配置信息，包含乘客ID等必要参数。
+    - runtime (ToolRuntime): 运行时上下文，包含乘客ID等必要参数。
 
     返回:
     - str: 操作结果的消息。
     """
-    configuration = config.get("configurable", {})
-    passenger_id = configuration.get("passenger_id", None)
+    # configuration = config.get("configurable", {})
+    # passenger_id = configuration.get("passenger_id", None)
+    passenger_id = runtime.context.passenger_id
     if not passenger_id:
         raise ValueError("未配置乘客 ID。")
 

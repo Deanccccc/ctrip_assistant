@@ -1,5 +1,5 @@
 """
-    创建图的节点 - Assistant
+    创建图的子节点 - AssistantNode(本质就是子图、子Agent)
 """
 from datetime import datetime
 
@@ -37,7 +37,7 @@ tools = [
 ]
 
 
-# 动态提示词
+# 动态提示词, 从上下文中动态注入user_info
 @dynamic_prompt
 def prompt(request: ModelRequest) -> str:
     # 从上下文中得到
@@ -55,11 +55,9 @@ def prompt(request: ModelRequest) -> str:
 
 # 创建子图实例(子Agent)
 def create_assistant_node():
-    agent = create_agent(
-        model=deepseek,
-        tools=tools,
-        middleware=[prompt],
-        context_schema=UserContext,
+    return create_agent(
+        model=deepseek,   # 模型
+        tools=tools,      # 工具列表
+        middleware=[prompt],   # 中间件
+        context_schema=UserContext,  # 用户上下文
     )
-    
-    return agent
