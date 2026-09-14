@@ -6,7 +6,7 @@ from loguru import logger
 
 # 获得当前项目的绝对路径
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-log_dir = os.path.join(root_dir, "logs")  # 存放项目日志目录的绝对路径
+log_dir = os.path.join(root_dir, "../logs")  # 存放项目日志目录的绝对路径
 
 if not os.path.exists(log_dir):  # 如果日志目录不存在，则创建
     os.mkdir(log_dir)
