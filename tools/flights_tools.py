@@ -9,7 +9,6 @@ from sqlite3 import connect
 from datetime import date, datetime
 from typing import Optional, List, Dict
 import pytz
-from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import tool
 from langgraph.prebuilt import ToolRuntime
 
@@ -239,8 +238,9 @@ def cancel_ticket(ticket_no: str, *, runtime: ToolRuntime) -> str:
         return "未找到给定机票号码的现有机票。"
 
     # 确认已登录用户确实拥有此机票
+    # 注意: tickets 表只有 ticket_no/book_ref/passenger_id 三列, flight_id 在 ticket_flights 表
     cursor.execute(
-        "SELECT flight_id FROM tickets WHERE ticket_no = ? AND passenger_id = ?",
+        "SELECT book_ref FROM tickets WHERE ticket_no = ? AND passenger_id = ?",
         (ticket_no, passenger_id),
     )
     current_ticket = cursor.fetchone()

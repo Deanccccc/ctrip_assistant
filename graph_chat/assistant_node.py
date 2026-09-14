@@ -21,27 +21,35 @@ from tools.trip_tools import search_trip_recommendations, book_excursion, update
 
 
 # 工具列表
-tools = [
-    fetch_user_flight_information,
-    search_flights,
-    lookup_policy,
-    update_ticket_to_new_flight,
-    cancel_ticket,
-    search_car_rentals,
-    book_car_rental,
-    update_car_rental,
-    cancel_car_rental,
-    search_hotels,
-    book_hotel,
-    update_hotel,
-    cancel_hotel,
-    search_trip_recommendations,
-    book_excursion,
-    update_excursion,
-    cancel_excursion,
+# 定义“只读”工具列表，这些工具不需要用户确认即可使用
+safe_tools = [
+    fetch_user_flight_information,       # 获取用户的航班信息
+    search_flights,                      # 搜索航班
+    lookup_policy,                       # 查看公司政策
+    search_car_rentals,                  # 搜索租车选项
+    search_hotels,                       # 搜索酒店
+    search_trip_recommendations,         # 搜索旅行推荐
 ]
 
-deepseek_with_tools = deepseek.bind_tools(tools)
+# 定义敏感工具列表，这些工具会更改用户的预订
+sensitive_tools = [
+    update_ticket_to_new_flight,         # 更新航班票务到新航班
+    cancel_ticket,                       # 取消票务
+    book_car_rental,                     # 预订租车
+    update_car_rental,                   # 更新租车预订
+    cancel_car_rental,                   # 取消租车预订
+    book_hotel,                          # 预订酒店
+    update_hotel,                        # 更新酒店预订
+    cancel_hotel,                        # 取消酒店预订
+    book_excursion,                      # 预订短途旅行
+    update_excursion,                    # 更新短途旅行预订
+    cancel_excursion,                    # 取消短途旅行预订
+]
+
+#  用于后续判断是否需要用户确认
+sensitive_tool_names = {t.name for t in sensitive_tools}
+
+deepseek_with_tools = deepseek.bind_tools(safe_tools + sensitive_tools)
 
 
 # ============ 动态 system prompt ============

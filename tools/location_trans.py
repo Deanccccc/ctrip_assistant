@@ -2,6 +2,10 @@
     城市名 中英文映射
 """
 def transform_location(chinese_city):
+    # 空值保护: 模型可能不带 location 参数调用搜索工具
+    if not chinese_city:
+        return chinese_city
+
     # 中文到英文的城市名映射表
     city_dict = {
         '北京': 'Beijing',
