@@ -25,9 +25,18 @@ embeddings_model = DashScopeEmbeddings(
 )
 
 
+# 对话模型
 deepseek = ChatOpenAI(
     model="deepseek-v4.1-flash",
     api_key=DEEPSEEK_API_KEY,
-    base_url="https://llm-vrqt4rj1e557r700.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    base_url=ALIYUN_BASE_URL,
     temperature=0.7,
+)
+
+# 实现主管意图识别的模型, 特点是temperature设置为0
+supervisor_base = ChatOpenAI(
+    model="deepseek-v4.1-flash",
+    api_key=DEEPSEEK_API_KEY,
+    base_url=ALIYUN_BASE_URL,
+    temperature=0,                   # 路由需要确定性, 与业务对话的高温度区分
 )
